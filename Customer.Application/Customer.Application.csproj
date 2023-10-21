@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Customer.DataStorage\Customer.DataStorage.csproj" />
+		<ProjectReference Include="..\Customer.Domain\Customer.Domain.csproj" />
+	</ItemGroup>
+
+</Project>
