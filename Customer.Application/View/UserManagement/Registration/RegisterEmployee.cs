@@ -104,7 +104,7 @@ namespace Customer.Application.View.UserManagement.Registration
                 employee.Email = email;
 
                 employee.EmployeeId = GenerateUniqueIdService.GenerateUniqueId();
-                employee.AccountType = "Pracownik";
+                employee.AccountType = position;
 
                 save.SaveEmployeeToJson(employee);
                 save.SaveUserloginToJson(employee.EmployeeId, employee.AccountType, employee.Username, employee.Password);

@@ -41,7 +41,7 @@ namespace Customer.Application.Services.LoginsSystemService
                     isRunning = supplier.ShowMenu(username);
                 }
             }
-            else if (accountType == "Administrator")
+            else if (accountType == "Administrator" || accountType == "Manager" || accountType == "Specjalista" || accountType == "Kierownik" || accountType == "Asystent" || accountType == "Pracownik")
             {
                 bool isRunning = true;
                 while (isRunning)

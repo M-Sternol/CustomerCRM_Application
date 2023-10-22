@@ -1,5 +1,6 @@
 ﻿using Customer.DataStorage;
 using Customer.Domain.Model.User.LoginModel;
+using Customer.Domain.Model.User.UserModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -181,7 +182,6 @@ namespace Customer.Application.Helpers
 
             return true;
         }
-        private static bool AdministratorExists = false;
         public static bool IsPositionValid(string position)
         {
             if (string.IsNullOrWhiteSpace(position))
@@ -191,7 +191,6 @@ namespace Customer.Application.Helpers
 
             position = position.ToUpper();
 
-            // Zaktualizowana lista ważnych stanowisk
             string[] validPositions = { "MANAGER", "KIEROWNIK", "SPECJALISTA", "ASYSTENT", "PRACOWNIK" };
 
             if (!validPositions.Contains(position))
@@ -200,18 +199,34 @@ namespace Customer.Application.Helpers
                 return false;
             }
 
+            string filePath = FileLocations.GetEmployeeFilePath();
+            List<EmployeeModel> employees = GetEmployees(filePath);
+
             if (position == "ADMINISTRATOR")
             {
-                if (AdministratorExists)
+                if (employees.Any(e => e.AccountType == "Administrator"))
                 {
                     Console.WriteLine("Może być tylko jeden Administrator. Nie można zarejestrować więcej niż jednego administratora.");
                     return false;
                 }
-                AdministratorExists = true;
             }
 
             return true;
         }
+
+        private static List<EmployeeModel> GetEmployees(string filePath)
+        {
+            List<EmployeeModel> existingData = new List<EmployeeModel>();
+
+            if (File.Exists(filePath))
+            {
+                string fileContent = File.ReadAllText(filePath);
+                existingData = JsonConvert.DeserializeObject<List<EmployeeModel>>(fileContent) ?? new List<EmployeeModel>();
+            }
+
+            return existingData;
+        }
+
 
 
 
