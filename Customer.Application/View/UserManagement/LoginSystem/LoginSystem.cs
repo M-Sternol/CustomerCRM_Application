@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Customer.DataStorage;
 using Customer.Domain.Interfaces;
+using Customer.Application.Helpers.Utils;
+using Customer.Application.Helpers;
 
 namespace Customer.Application.View.UserManagement.Login
 {
@@ -52,12 +54,16 @@ namespace Customer.Application.View.UserManagement.Login
 
                         if (!isLoggedIn)
                         {
-                            Console.WriteLine("Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie.");
+                            Console.WriteLine("Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie. albo wyjść wciśnij - ESC");
+                            string esc = CheckForEscKey.ReadInput(ref ValidationHelper.registrationCancelled);
+                            return;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie.");
+                        Console.WriteLine("Nieprawidłowa nazwa użytkownika lub hasło. Spróbuj ponownie. albo wyjść wciśnij - ESC");
+                        string esc = CheckForEscKey.ReadInput(ref ValidationHelper.registrationCancelled);
+                        return;
                     }
                 }
             }

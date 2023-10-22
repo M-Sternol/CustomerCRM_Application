@@ -40,8 +40,8 @@ namespace Customer.Start
                         documentation.DisplayDocumentation();
                         break;
                         case "4":
-                            RaportGenerator aportGenerator = new RaportGenerator();
-                        aportGenerator.GenerateReport();
+                           RegisterEmployee registerEmployee = new RegisterEmployee();
+                        registerEmployee.RegistrationEmployee(); //Awaryjne Rejestrowanie pracownika
                         break;
                     case "0":
                         Console.WriteLine("Do Zobaczenia!");

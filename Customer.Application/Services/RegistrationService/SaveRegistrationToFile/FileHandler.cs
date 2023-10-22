@@ -1,5 +1,4 @@
-﻿
-using Customer.Domain.Model.User.LoginModel;
+﻿using Customer.Domain.Model.User.LoginModel;
 using Customer.Domain.Model.User.UserModel;
 using Customer.DataStorage;
 using Newtonsoft.Json;
@@ -7,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +17,19 @@ namespace Customer.Application.Services.RegistrationService.SaveRegistrationToFi
 {
     public class FileHandler
     {
+        private void CreateFileDirectoryIfNotExists(string filePath)
+        {
+            var directoryPath = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+        }
+
         public void SaveCustomerToJson(ClientModel customer)
         {
             string filePath = FileLocations.GetCustomerFilePath();
+            CreateFileDirectoryIfNotExists(filePath);
 
             List<ClientModel> existingData = new List<ClientModel>();
 
@@ -34,9 +44,11 @@ namespace Customer.Application.Services.RegistrationService.SaveRegistrationToFi
             string updatedContent = JsonConvert.SerializeObject(existingData, Formatting.Indented);
             File.WriteAllText(filePath, updatedContent);
         }
+
         public void SaveSupplierToJson(SupplierModel supplier)
         {
             string filePath = FileLocations.GetSupplierFilePath();
+            CreateFileDirectoryIfNotExists(filePath);
 
             List<SupplierModel> existingData = new List<SupplierModel>();
 
@@ -51,9 +63,11 @@ namespace Customer.Application.Services.RegistrationService.SaveRegistrationToFi
             string updatedContent = JsonConvert.SerializeObject(existingData, Formatting.Indented);
             File.WriteAllText(filePath, updatedContent);
         }
+
         public void SaveEmployeeToJson(EmployeeModel employee)
         {
             string filePath = FileLocations.GetEmployeeFilePath();
+            CreateFileDirectoryIfNotExists(filePath);
 
             List<EmployeeModel> existingData = new List<EmployeeModel>();
 
@@ -84,11 +98,10 @@ namespace Customer.Application.Services.RegistrationService.SaveRegistrationToFi
             File.WriteAllText(filePath, updatedContent);
         }
 
-
-
         public void SaveUserloginToJson(string id, string accountType, string userName, string password)
         {
             string filePath = FileLocations.GetUserLoginsFilePath();
+            CreateFileDirectoryIfNotExists(filePath);
 
             List<UserLogin> existingData = new List<UserLogin>();
 
